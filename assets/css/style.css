@@ -1,0 +1,28 @@
+header{
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+}
+#time{
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+}
+
+#viewScore{
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+#titletext{
+    display:flex;
+    justify-content:center;
+}
+
+h3{
+    display:flex;
+    justify-content:center;
+}
+
