@@ -90,6 +90,15 @@ h3{
     cursor:pointer;
 }
 
+ol{
+    width:500px;
+}
+
+#leaderboard{
+    display:flex;
+    justify-content:center;
+}
+
 #startBtn{
     width: 200px;
     height: 100px;

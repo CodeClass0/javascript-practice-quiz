@@ -12,7 +12,16 @@ var cButton = document.querySelector("#cBtn");
 var dButton = document.querySelector("#dBtn");
 var answerButtons = document.querySelector(".answerBtn");
 var listEl = document.querySelector('ol');
+var leaderboardBlock = document.querySelector('#leaderboard');
+var timeValue = 0;
+var leaderboardEntry = ""; 
 
+var leaderObj = {
+    user: "",
+    score: 0,
+};
+
+var userArray = [];
 var passFail = document.querySelector("#passfail");
 var timeLeft = 59;
 var timeInterval = 0;
@@ -84,75 +93,8 @@ startBtn.addEventListener("click", function(event){
     countdown(); 
     startBtn.setAttribute("style", "display:none");
     displayQuestion(0);
-})
+});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var timeValue = 0;
-var leaderboardEntry = ""; 
-
-var leaderObj = {
-    user: "",
-    score: 0,
-};
-
-var userArray = [];
 
 submitButton.addEventListener("click",function(event){
     event.preventDefault();
@@ -163,8 +105,8 @@ submitButton.addEventListener("click",function(event){
     var oldData = JSON.parse(localStorage.getItem('array'));
     oldData.push(leaderObj);
     localStorage.setItem('array', JSON.stringify(oldData));
-
     compileLeaderboard();
+    submitButton.setAttribute("style","display:none");
 });
 
 
@@ -175,8 +117,10 @@ function compileLeaderboard(){
     for(var i = 0; i<5; i++){
         var li = document.createElement("li");
         li.textContent = (oldData[i].user + " - " + oldData[i].score);
+        li.setAttribute("style", "background-color:orange; padding:6px; padding-left:10px; font-size: 20px; height:27px; margin:5px; border:1px solid black; border-radius:12px;");
         listEl.append(li);
     }
+
 }
 
 
@@ -199,39 +143,6 @@ function endGame(){
     dBtn.setAttribute("style","display:none");
     saveGame.setAttribute("style", "display:flex; Justify-content:center; font-size: 25px");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 aButton.addEventListener("click", function(event){
     checkAnswer(questionArray[0].answerA);
@@ -268,7 +179,6 @@ function checkAnswer(choice){
         endGame();
     }
 }
-
 
 
 function countdown() {
