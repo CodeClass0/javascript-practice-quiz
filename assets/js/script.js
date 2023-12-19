@@ -94,7 +94,7 @@ submitButton.addEventListener("click",function(event){
     userArray.push(leaderObj);
     leaderboardBlock.setAttribute("style","display:flex");
     var oldData = JSON.parse(localStorage.getItem('array'));
-    // oldData.push(leaderObj);
+    oldData.push(leaderObj);
     localStorage.setItem('array', JSON.stringify(oldData));
     compileLeaderboard();
     submitButton.setAttribute("style","display:none");
