@@ -1,3 +1,4 @@
+//hooks to html
 var saveGame = document.querySelector("#saveScore");
 var initialsEl = document.querySelector('input');
 var submitButton = document.querySelector("#submitBtn");
@@ -15,28 +16,20 @@ var listEl = document.querySelector('ol');
 var leaderboardBlock = document.querySelector('#leaderboard');
 var goBack = document.querySelector("#goBackBtn");
 var clear = document.querySelector("#clearBtn");
+
+//global variables
 var timeValue = 0;
 var leaderboardEntry = ""; 
 var viewScores = document.querySelector("#viewScore");
-
-
-viewScores.addEventListener("click",function(event){
-    event.preventDefault();
-    viewHighScores();
-});
-
 var leaderObj = {
     user: "",
     score: 0,
 };
-
 var userArray = [];
 var passFail = document.querySelector("#passfail");
 var timeLeft = 59;
 var timeInterval = 0;
 var inputValue ="";
-
-
 var question1 = {
     question: "Arrays in Javascript can be used to store _________.",
     answerA: "numbers and strings",
@@ -45,7 +38,6 @@ var question1 = {
     answerD: "all of the above",
     correctAnswer: "all of the above",
 };
-
 var question2 = {
     question: "String values must be enclosed within _________ when being assigned to variables.",
     answerA: "commas",
@@ -54,7 +46,6 @@ var question2 = {
     answerD: "parenthesis",
     correctAnswer: "quotes",
 }
-
 var question3 = {
     question: "The condition in an if/else statement is enclosed with _________.",
     answerA: "quotes",
@@ -62,8 +53,7 @@ var question3 = {
     answerC: "parenthesis",  
     answerD: "square brackets",
     correctAnswer: "parenthesis",
-};
-    
+};  
 var question4 = {
     question: "A very useful tool used during development and debugging for printing content to the debugger is:",
     answerA: "JavaScript",
@@ -72,7 +62,6 @@ var question4 = {
     answerD: "console.log",
     correctAnswer: "console.log",
 };
-
 var question5 = {
     question: "Commonly used data types do NOT include:",
     answerA: "strings",
@@ -81,49 +70,14 @@ var question5 = {
     answerD: "numbers",
     correctAnswer: "alerts", 
 };
-
 var questionArray = [question1,question2,question3,question4,question5];
 
-function viewHighScores(){
-    questionBlock.textContent="High scores";
-    startBtn.setAttribute("style","display:none");
-    description.setAttribute("style","display:none");
-    viewScores.setAttribute("style","visibility:hidden");
-    clearInterval(timeInterval);
-    passFail.setAttribute("style", "display:none");
-    timerEl.setAttribute("style", "display:none");
-    aBtn.setAttribute("style","display:none");
-    bBtn.setAttribute("style","display:none");
-    cBtn.setAttribute("style","display:none");
-    dBtn.setAttribute("style","display:none");
-    // leaderObj.user = initialsEl.value.substring(0,3);
-    // leaderObj.score = timeValue;
-    // userArray.push(leaderObj);
-    leaderboardBlock.setAttribute("style","display:flex");
-    var oldData = JSON.parse(localStorage.getItem('array'));
-    oldData.push(leaderObj);
-    //localStorage.setItem('array', JSON.stringify(oldData));
-    compileLeaderboard();
-    submitButton.setAttribute("style","display:none");
-    var goBack = document.querySelector("#goBackBtn");
-    goBack.setAttribute("style","display:flex; width:145px; font-size:17px; align-items: center;  justify-content:space-around;");
-    var clear = document.querySelector("#clearBtn");
-    clear.setAttribute("style", "display:flex; width:145px; font-size:17px; align-items: center; justify-content:space-around;");
-}
 
-function displayQuestion(index){
-    questionBlock.textContent = questionArray[index].question;
-    description.setAttribute("style", "display:none");
-    aButton.textContent = questionArray[index].answerA;
-    aButton.setAttribute("style", "display:block");
-    bButton.textContent = questionArray[index].answerB;
-    bButton.setAttribute("style", "display:block");
-    cButton.textContent = questionArray[index].answerC;
-    cButton.setAttribute("style", "display:block");
-    dButton.textContent = questionArray[index].answerD;
-    dButton.setAttribute("style", "display:block");
-}
-
+//event listeners
+viewScores.addEventListener("click",function(event){
+    event.preventDefault();
+    viewHighScores();
+});
 startBtn.addEventListener("click", function(event){
     event.preventDefault();
     leaderboardBlock.setAttribute("style", "display:none");
@@ -132,8 +86,6 @@ startBtn.addEventListener("click", function(event){
     displayQuestion(0);
     viewScores.setAttribute("style","visibility:visible");
 });
-
-
 submitButton.addEventListener("click",function(event){
     event.preventDefault();
     viewScores.setAttribute("style","visibility:hidden");
@@ -151,8 +103,73 @@ submitButton.addEventListener("click",function(event){
     var clear = document.querySelector("#clearBtn");
     clear.setAttribute("style", "display:flex; width:145px; font-size:17px; align-items: center; justify-content:space-around;");
 });
+goBack.addEventListener("click", function(event){
+    viewScores.setAttribute("style","visibility:visible");
+    event.preventDefault();
+    location.reload();
+});
+clear.addEventListener("click", function(event){
+    event.preventDefault();
+    var oldData = JSON.parse(localStorage.getItem('array'));
+    oldData = [];
+    localStorage.setItem('array', JSON.stringify(oldData));
+    var goBack = document.querySelector("#goBackBtn");
+    goBack.setAttribute("style","display:flex; width:145px; font-size:17px; align-items: center;  justify-content:space-around;");
+    var clear = document.querySelector("#clearBtn");
+    clear.setAttribute("style", "display:flex; width:145px; font-size:17px; align-items: center; justify-content:space-around;");
+    location.reload();
+});
+aButton.addEventListener("click", function(event){
+    checkAnswer(questionArray[0].answerA);
+});
+bButton.addEventListener("click", function(event){
+    checkAnswer(questionArray[0].answerB);
+});
+cButton.addEventListener("click", function(event){
+    checkAnswer(questionArray[0].answerC);
+});
+dButton.addEventListener("click", function(event){
+    checkAnswer(questionArray[0].answerD);
+});
 
 
+
+
+//functions
+function viewHighScores(){
+    questionBlock.textContent="High scores";
+    startBtn.setAttribute("style","display:none");
+    description.setAttribute("style","display:none");
+    viewScores.setAttribute("style","visibility:hidden");
+    clearInterval(timeInterval);
+    passFail.setAttribute("style", "display:none");
+    timerEl.setAttribute("style", "display:none");
+    aBtn.setAttribute("style","display:none");
+    bBtn.setAttribute("style","display:none");
+    cBtn.setAttribute("style","display:none");
+    dBtn.setAttribute("style","display:none");
+    leaderboardBlock.setAttribute("style","display:flex");
+    var oldData = JSON.parse(localStorage.getItem('array'));
+    oldData.push(leaderObj);
+    compileLeaderboard();
+    submitButton.setAttribute("style","display:none");
+    var goBack = document.querySelector("#goBackBtn");
+    goBack.setAttribute("style","display:flex; width:145px; font-size:17px; align-items: center;  justify-content:space-around;");
+    var clear = document.querySelector("#clearBtn");
+    clear.setAttribute("style", "display:flex; width:145px; font-size:17px; align-items: center; justify-content:space-around;");
+}
+function displayQuestion(index){
+    questionBlock.textContent = questionArray[index].question;
+    description.setAttribute("style", "display:none");
+    aButton.textContent = questionArray[index].answerA;
+    aButton.setAttribute("style", "display:block");
+    bButton.textContent = questionArray[index].answerB;
+    bButton.setAttribute("style", "display:block");
+    cButton.textContent = questionArray[index].answerC;
+    cButton.setAttribute("style", "display:block");
+    dButton.textContent = questionArray[index].answerD;
+    dButton.setAttribute("style", "display:block");
+}
 //This compiles and sorts by highest score
 function compileLeaderboard(){
     var goBack = document.querySelector("#goBackBtn");
@@ -169,25 +186,6 @@ function compileLeaderboard(){
         listEl.append(li);
     }
 }
-
-goBack.addEventListener("click", function(event){
-    viewScores.setAttribute("style","visibility:visible");
-    event.preventDefault();
-    location.reload();
-});
-
-clear.addEventListener("click", function(event){
-    event.preventDefault();
-    var oldData = JSON.parse(localStorage.getItem('array'));
-    oldData = [];
-    localStorage.setItem('array', JSON.stringify(oldData));
-    var goBack = document.querySelector("#goBackBtn");
-    goBack.setAttribute("style","display:flex; width:145px; font-size:17px; align-items: center;  justify-content:space-around;");
-    var clear = document.querySelector("#clearBtn");
-    clear.setAttribute("style", "display:flex; width:145px; font-size:17px; align-items: center; justify-content:space-around;");
-    location.reload();
-});
-
 function endGame(){
     const finalScore = timeLeft; //I'm using const here because it holds the score once the timer hits zero. Using a var, it would change when the timer finished.
     timeValue = finalScore; //Apparently order matters here, as setting finalScore to timeValue broke, but setting timeValue to finalScore works.
@@ -204,23 +202,6 @@ function endGame(){
     saveGame.setAttribute("style", "display:flex; Justify-content:center; font-size: 25px");
     submitButton.setAttribute("style","display:flex; align-items:center; Justify-content:center; font-size: 15px");
 }
-
-aButton.addEventListener("click", function(event){
-    checkAnswer(questionArray[0].answerA);
-});
-
-bButton.addEventListener("click", function(event){
-    checkAnswer(questionArray[0].answerB);
-});
-
-cButton.addEventListener("click", function(event){
-    checkAnswer(questionArray[0].answerC);
-});
-
-dButton.addEventListener("click", function(event){
-    checkAnswer(questionArray[0].answerD);
-});
-
 function checkAnswer(choice){
     var rubric = questionArray[0].correctAnswer;
     if(choice == rubric){
@@ -240,24 +221,15 @@ function checkAnswer(choice){
         endGame();
     }
 }
-
-
 function countdown() {
     timerEl.textContent = "Time: 60";
-    // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
     timeInterval = setInterval(function () {
-      // As long as the `timeLeft` is greater than 1
       if (timeLeft >= 1) {
-        // Set the `textContent` of `timerEl` to show the remaining seconds
         timerEl.textContent = "Time: " + timeLeft;
-        // Decrement `timeLeft` by 1
         timeLeft--;
       } else {
-        // Once `timeLeft` gets to 0, set `timerEl` to an empty string
         timerEl.textContent = "Time's up!";
-        // Use `clearInterval()` to stop the timer
         clearInterval(timeInterval);
-        // Call the `endGame()` function
         endGame();
       }
     }, 1000);

@@ -6,55 +6,31 @@ header{
     flex-direction:row;
     justify-content: space-between;
 }
-#time{
-    position:absolute;
-    display:flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    right:0;
-    width: 190px;
+input{
+    margin-right:10px;
+    margin-left:10px;
 }
 main{
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
-
-#viewScore{
-    display:flex;
-    flex-direction: row;
-    justify-content: flex-start;
-}
-
-#titletext{
-    display:flex;
-    justify-content:center;
-    font-size: 40px;
-    padding: 5px;
-    margin-bottom: 0px;
-}
-
 h3{
     display:flex;
     justify-content:center;
     font-weight:lighter;
     font-size:25px;
 }
-
-#questionBlock{
-    display:flex;
-    flex-direction: column;
-    width:1000px;
-    justify-content: center;
+button:hover{
+    border: 3px solid green;
+    background-color: rgb(255, 181, 45);
+    cursor:pointer;
+}
+ol{
+    width:500px;
 }
 
-
-#answerBlock{
-    display:flex;
-    flex-direction: column;
-    justify-content: left;
-}
-
+/* classes */
 .answerBtn{
     width:250px;
     height:60px;
@@ -66,38 +42,6 @@ h3{
     margin:7px;
     border-radius: 12px;
 }
-
-#submitBtn{
-    width: 95px;
-    height: 30px;
-    background-color:orange;
-    color:white;
-    font-weight:bolder;
-    /* font-size:30px; */
-    border-radius: 12px;
-}
-
-#buttonrow{
-    display: flex;
-    justify-content: space-evenly;
-    width:500px;
-}
-
-/* #submitBtn:hover{
-    border: 3px solid green;
-    background-color: rgb(255, 181, 45);
-    cursor:pointer;
-} */
-
-input{
-    margin-right:10px;
-    margin-left:10px;
-}
-
-#saveScore{
-    display:none;
-}
-
 .leaderBtns{
     display:none;
     width:65px;
@@ -108,21 +52,57 @@ input{
     font-size:30px;
     border-radius: 12px;
 }
-button:hover{
-    border: 3px solid green;
-    background-color: rgb(255, 181, 45);
-    cursor:pointer;
-}
-/* .answerBtn:hover{
-    border: 3px solid green;
-    background-color: rgb(255, 181, 45);
-    cursor:pointer;
-} */
 
-ol{
+
+/* id's */
+#time{
+    position:absolute;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    right:0;
+    width: 190px;
+}
+#viewScore{
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+#titletext{
+    display:flex;
+    justify-content:center;
+    font-size: 40px;
+    padding: 5px;
+    margin-bottom: 0px;
+}
+#questionBlock{
+    display:flex;
+    flex-direction: column;
+    width:1000px;
+    justify-content: center;
+}
+#answerBlock{
+    display:flex;
+    flex-direction: column;
+    justify-content: left;
+}
+#submitBtn{
+    width: 95px;
+    height: 30px;
+    background-color:orange;
+    color:white;
+    font-weight:bolder;
+    /* font-size:30px; */
+    border-radius: 12px;
+}
+#buttonrow{
+    display: flex;
+    justify-content: space-evenly;
     width:500px;
 }
-
+#saveScore{
+    display:none;
+}
 #leaderboard{
     display: flex;
     justify-content: center;
@@ -130,7 +110,6 @@ ol{
     align-content: center;
     align-items: center;
 }
-
 #startBtn{
     width: 200px;
     height: 100px;
@@ -140,14 +119,8 @@ ol{
     font-size:30px;
     border-radius: 12px;
 }
-
 #startBtnContainer{
     display: flex;
     justify-content: center;
 }
 
-/* #startBtn:hover{
-    border: 3px solid green;
-    background-color: rgb(255, 181, 45);
-    cursor:pointer;
-} */
