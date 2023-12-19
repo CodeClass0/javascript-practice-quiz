@@ -223,6 +223,7 @@ function checkAnswer(choice){
 }
 function countdown() {
     timerEl.textContent = "Time: 60";
+    // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
     timeInterval = setInterval(function () {
       if (timeLeft >= 1) {
         timerEl.textContent = "Time: " + timeLeft;
