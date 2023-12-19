@@ -1,3 +1,6 @@
+var saveGame = document.querySelector("#saveScore");
+var initialsEl = document.querySelector('input');
+var submitButton = document.querySelector("#submitBtn");
 var answeEl = document.querySelector("#answerBlock");
 var timerEl = document.querySelector("#time");
 var startBtn = document.querySelector("#startBtn");
@@ -11,7 +14,9 @@ var answerButtons = document.querySelector(".answerBtn");
 var passFail = document.querySelector("#passfail");
 var timeLeft = 59;
 var body=document.body;
-
+var timeInterval = 0;
+var inputValue ="";
+var leaderBoard = [];
 var question1 = {
     question: "Arrays in Javascript can be used to store _________.",
     answerA: "numbers and strings",
@@ -79,6 +84,24 @@ startBtn.addEventListener("click", function(event){
     displayQuestion(0);
 })
 
+
+submitButton.addEventListener("click",function(event){
+    event.preventDefault();
+    inputValue = initialsEl.value;
+    saveInits();
+    showLeaderboard();
+})
+
+function saveInits(){
+    var name = inputValue.substring(0,3);
+    leaderBoard.push(name);
+    localStorage.setItem("leaderboard",leaderBoard);
+}
+
+function showLeaderboard(){
+    questionBlock.textContent="High scores";
+}
+
 aButton.addEventListener("click", function(event){
     checkAnswer(questionArray[0].answerA);
 });
@@ -99,8 +122,11 @@ function checkAnswer(choice){
     var rubric = questionArray[0].correctAnswer;
     if(choice == rubric){
         passFail.textContent = "Correct!";
+        passFail.setAttribute("style","color:black");
+        
     }else{
         passFail.textContent = "Wrong!";
+        passFail.setAttribute("style","color:red");
         timeLeft=timeLeft-10;
     }
 
@@ -113,7 +139,10 @@ function checkAnswer(choice){
 }
 
 function endGame(){
-    var finalScore = timeLeft; 
+    const finalScore = timeLeft;
+    clearInterval(timeInterval);
+    passFail.setAttribute("style", "display:none");
+    timerEl.setAttribute("style", "display:none");
     questionBlock.textContent="All done!";
     description.textContent="Your final score is " + finalScore + "!";
     description.setAttribute("style", "display:visible");
@@ -121,24 +150,23 @@ function endGame(){
     bBtn.setAttribute("style","display:none");
     cBtn.setAttribute("style","display:none");
     dBtn.setAttribute("style","display:none");
-
+    saveGame.setAttribute("style", "display:flex; Justify-content:center; font-size: 25px");
 }
+
 
 function countdown() {
     timerEl.textContent = "Time: 60";
-
-  
     // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
-    var timeInterval = setInterval(function () {
+    timeInterval = setInterval(function () {
       // As long as the `timeLeft` is greater than 1
-      if (timeLeft > 1) {
+      if (timeLeft >= 1) {
         // Set the `textContent` of `timerEl` to show the remaining seconds
         timerEl.textContent = "Time: " + timeLeft;
         // Decrement `timeLeft` by 1
         timeLeft--;
       } else {
         // Once `timeLeft` gets to 0, set `timerEl` to an empty string
-        timerEl.textContent = '';
+        timerEl.textContent = "Time's up!";
         // Use `clearInterval()` to stop the timer
         clearInterval(timeInterval);
         // Call the `endGame()` function
