@@ -10,6 +10,7 @@ var dButton = document.querySelector("#dBtn");
 var answerButtons = document.querySelector(".answerBtn");
 var passFail = document.querySelector("#passfail");
 var timeLeft = 59;
+var body=document.body;
 
 var question1 = {
     question: "Arrays in Javascript can be used to store _________.",
@@ -107,11 +108,19 @@ function checkAnswer(choice){
         questionArray.shift();
         displayQuestion(0);
     }else{
-        alert("end");
+        endGame();
     }
 }
 
 function endGame(){
+    var finalScore = timeLeft; 
+    questionBlock.textContent="All done!";
+    description.textContent="Your final score is " + finalScore + "!";
+    description.setAttribute("style", "display:visible");
+    aBtn.setAttribute("style","display:none");
+    bBtn.setAttribute("style","display:none");
+    cBtn.setAttribute("style","display:none");
+    dBtn.setAttribute("style","display:none");
 
 }
 
