@@ -158,21 +158,23 @@ submitButton.addEventListener("click",function(event){
     leaderObj.score = timeValue;
     userArray.push(leaderObj);
 
-    //Store the array to local storage.
-    localStorage.setItem('array', JSON.stringify(userArray));
-
-    //retrieve the array
     var oldData = JSON.parse(localStorage.getItem('array'));
+    oldData.push(leaderObj);
+    localStorage.setItem('array', JSON.stringify(oldData));
 
-    //call the first object's user. With this, I can now add code to sort by highest score.
-    alert(oldData[0].user);
-
-
-
-
-
-    //displayLeaderboard();
+    compileLeaderboard();
 });
+
+
+//This compiles and sorts by highest score
+function compileLeaderboard(){
+    var oldData = JSON.parse(localStorage.getItem('array'));
+    oldData.sort((a,b) => b.score-a.score);
+    for(var i = 0; i<oldData.length; i++){
+        alert(oldData[i].user + " - " + oldData[i].score);
+    }
+}
+
 
 function displayLeaderboard(){
     questionBlock.textContent="High scores";
