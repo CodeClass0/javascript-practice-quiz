@@ -94,7 +94,7 @@ submitButton.addEventListener("click",function(event){
     userArray.push(leaderObj);
     leaderboardBlock.setAttribute("style","display:flex");
     var oldData = JSON.parse(localStorage.getItem('array'));
-    oldData.push(leaderObj);
+    // oldData.push(leaderObj);
     localStorage.setItem('array', JSON.stringify(oldData));
     compileLeaderboard();
     submitButton.setAttribute("style","display:none");
@@ -223,7 +223,6 @@ function checkAnswer(choice){
 }
 function countdown() {
     timerEl.textContent = "Time: 60";
-    // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
     timeInterval = setInterval(function () {
       if (timeLeft >= 1) {
         timerEl.textContent = "Time: " + timeLeft;
