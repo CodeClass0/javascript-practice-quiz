@@ -1,6 +1,4 @@
-*{
-    background-color: darkslategrey;
-}
+
 header{
     display:flex;
     flex-direction:row;

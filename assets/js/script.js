@@ -11,6 +11,8 @@ var bButton = document.querySelector("#bBtn");
 var cButton = document.querySelector("#cBtn");
 var dButton = document.querySelector("#dBtn");
 var answerButtons = document.querySelector(".answerBtn");
+var listEl = document.querySelector('ol');
+
 var passFail = document.querySelector("#passfail");
 var timeLeft = 59;
 var timeInterval = 0;
@@ -170,8 +172,10 @@ submitButton.addEventListener("click",function(event){
 function compileLeaderboard(){
     var oldData = JSON.parse(localStorage.getItem('array'));
     oldData.sort((a,b) => b.score-a.score);
-    for(var i = 0; i<oldData.length; i++){
-        alert(oldData[i].user + " - " + oldData[i].score);
+    for(var i = 0; i<5; i++){
+        var li = document.createElement("li");
+        li.textContent = (oldData[i].user + " - " + oldData[i].score);
+        listEl.append(li);
     }
 }
 
