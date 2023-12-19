@@ -13,10 +13,10 @@ var dButton = document.querySelector("#dBtn");
 var answerButtons = document.querySelector(".answerBtn");
 var passFail = document.querySelector("#passfail");
 var timeLeft = 59;
-var body=document.body;
 var timeInterval = 0;
 var inputValue ="";
-var leaderBoard = [];
+
+
 var question1 = {
     question: "Arrays in Javascript can be used to store _________.",
     answerA: "numbers and strings",
@@ -85,22 +85,147 @@ startBtn.addEventListener("click", function(event){
 })
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var timeValue = 0;
+var leaderboardEntry = ""; 
+
+var leaderObj = {
+    user: "",
+    score: 0,
+};
+
+var userArray = [];
+
 submitButton.addEventListener("click",function(event){
     event.preventDefault();
-    inputValue = initialsEl.value;
-    saveInits();
-    showLeaderboard();
-})
+    leaderObj.user = initialsEl.value.substring(0,3);
+    leaderObj.score = timeValue;
+    userArray.push(leaderObj);
 
-function saveInits(){
-    var name = inputValue.substring(0,3);
-    leaderBoard.push(name);
-    localStorage.setItem("leaderboard",leaderBoard);
-}
+    //Store the array to local storage.
+    localStorage.setItem('array', JSON.stringify(userArray));
 
-function showLeaderboard(){
+    //retrieve the array
+    var oldData = JSON.parse(localStorage.getItem('array'));
+
+    //call the first object's user. With this, I can now add code to sort by highest score.
+    alert(oldData[0].user);
+
+
+
+
+
+    //displayLeaderboard();
+});
+
+function displayLeaderboard(){
     questionBlock.textContent="High scores";
 }
+
+function endGame(){
+    const finalScore = timeLeft; //I'm using const here because it holds the score once the timer hits zero. Using a var, it would change when the timer finished.
+    timeValue = finalScore; //Apparently order matters here, as setting finalScore to timeValue broke, but setting timeValue to finalScore works.
+    clearInterval(timeInterval);
+    passFail.setAttribute("style", "display:none");
+    timerEl.setAttribute("style", "display:none");
+    questionBlock.textContent="All done!";
+    description.textContent="Your final score is " + finalScore + "!";
+    description.setAttribute("style", "display:visible");
+    aBtn.setAttribute("style","display:none");
+    bBtn.setAttribute("style","display:none");
+    cBtn.setAttribute("style","display:none");
+    dBtn.setAttribute("style","display:none");
+    saveGame.setAttribute("style", "display:flex; Justify-content:center; font-size: 25px");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 aButton.addEventListener("click", function(event){
     checkAnswer(questionArray[0].answerA);
@@ -138,20 +263,6 @@ function checkAnswer(choice){
     }
 }
 
-function endGame(){
-    const finalScore = timeLeft;
-    clearInterval(timeInterval);
-    passFail.setAttribute("style", "display:none");
-    timerEl.setAttribute("style", "display:none");
-    questionBlock.textContent="All done!";
-    description.textContent="Your final score is " + finalScore + "!";
-    description.setAttribute("style", "display:visible");
-    aBtn.setAttribute("style","display:none");
-    bBtn.setAttribute("style","display:none");
-    cBtn.setAttribute("style","display:none");
-    dBtn.setAttribute("style","display:none");
-    saveGame.setAttribute("style", "display:flex; Justify-content:center; font-size: 25px");
-}
 
 
 function countdown() {
