@@ -13,8 +13,17 @@ var dButton = document.querySelector("#dBtn");
 var answerButtons = document.querySelector(".answerBtn");
 var listEl = document.querySelector('ol');
 var leaderboardBlock = document.querySelector('#leaderboard');
+var goBack = document.querySelector("#goBackBtn");
+var clear = document.querySelector("#clearBtn");
 var timeValue = 0;
 var leaderboardEntry = ""; 
+var viewScores = document.querySelector("#viewScore");
+
+
+viewScores.addEventListener("click",function(event){
+    event.preventDefault();
+    viewHighScores();
+});
 
 var leaderObj = {
     user: "",
@@ -75,6 +84,33 @@ var question5 = {
 
 var questionArray = [question1,question2,question3,question4,question5];
 
+function viewHighScores(){
+    questionBlock.textContent="High scores";
+    startBtn.setAttribute("style","display:none");
+    description.setAttribute("style","display:none");
+    viewScores.setAttribute("style","visibility:hidden");
+    clearInterval(timeInterval);
+    passFail.setAttribute("style", "display:none");
+    timerEl.setAttribute("style", "display:none");
+    aBtn.setAttribute("style","display:none");
+    bBtn.setAttribute("style","display:none");
+    cBtn.setAttribute("style","display:none");
+    dBtn.setAttribute("style","display:none");
+    // leaderObj.user = initialsEl.value.substring(0,3);
+    // leaderObj.score = timeValue;
+    // userArray.push(leaderObj);
+    leaderboardBlock.setAttribute("style","display:flex");
+    var oldData = JSON.parse(localStorage.getItem('array'));
+    oldData.push(leaderObj);
+    //localStorage.setItem('array', JSON.stringify(oldData));
+    compileLeaderboard();
+    submitButton.setAttribute("style","display:none");
+    var goBack = document.querySelector("#goBackBtn");
+    goBack.setAttribute("style","display:flex; width:145px; font-size:17px; align-items: center;  justify-content:space-around;");
+    var clear = document.querySelector("#clearBtn");
+    clear.setAttribute("style", "display:flex; width:145px; font-size:17px; align-items: center; justify-content:space-around;");
+}
+
 function displayQuestion(index){
     questionBlock.textContent = questionArray[index].question;
     description.setAttribute("style", "display:none");
@@ -90,43 +126,67 @@ function displayQuestion(index){
 
 startBtn.addEventListener("click", function(event){
     event.preventDefault();
+    leaderboardBlock.setAttribute("style", "display:none");
     countdown(); 
     startBtn.setAttribute("style", "display:none");
     displayQuestion(0);
+    viewScores.setAttribute("style","visibility:visible");
 });
 
 
 submitButton.addEventListener("click",function(event){
     event.preventDefault();
+    viewScores.setAttribute("style","visibility:hidden");
     leaderObj.user = initialsEl.value.substring(0,3);
     leaderObj.score = timeValue;
     userArray.push(leaderObj);
-
+    leaderboardBlock.setAttribute("style","display:flex");
     var oldData = JSON.parse(localStorage.getItem('array'));
     oldData.push(leaderObj);
     localStorage.setItem('array', JSON.stringify(oldData));
     compileLeaderboard();
     submitButton.setAttribute("style","display:none");
+    var goBack = document.querySelector("#goBackBtn");
+    goBack.setAttribute("style","display:flex; width:145px; font-size:17px; align-items: center;  justify-content:space-around;");
+    var clear = document.querySelector("#clearBtn");
+    clear.setAttribute("style", "display:flex; width:145px; font-size:17px; align-items: center; justify-content:space-around;");
 });
 
 
 //This compiles and sorts by highest score
 function compileLeaderboard(){
-    var oldData = JSON.parse(localStorage.getItem('array'));
+    var goBack = document.querySelector("#goBackBtn");
+    goBack.setAttribute("style","display:flex; width:145px; font-size:17px; align-items: center;  justify-content:space-around;");
+    var clear = document.querySelector("#clearBtn");
+    clear.setAttribute("style", "display:flex; width:145px; font-size:17px; align-items: center; justify-content:space-around;");
+    var oldData;
+    oldData = JSON.parse(localStorage.getItem('array'));
     oldData.sort((a,b) => b.score-a.score);
-    for(var i = 0; i<5; i++){
+    for(var i = 0; i<oldData.length; i++){
         var li = document.createElement("li");
         li.textContent = (oldData[i].user + " - " + oldData[i].score);
-        li.setAttribute("style", "background-color:orange; padding:6px; padding-left:10px; font-size: 20px; height:27px; margin:5px; border:1px solid black; border-radius:12px;");
+        li.setAttribute("style", "background-color:rgb(143,255,164); padding:6px; padding-left:10px; font-size: 20px; height:27px; margin:5px; border:1px solid black; border-radius:12px;");
         listEl.append(li);
     }
-
 }
 
+goBack.addEventListener("click", function(event){
+    viewScores.setAttribute("style","visibility:visible");
+    event.preventDefault();
+    location.reload();
+});
 
-function displayLeaderboard(){
-    questionBlock.textContent="High scores";
-}
+clear.addEventListener("click", function(event){
+    event.preventDefault();
+    var oldData = JSON.parse(localStorage.getItem('array'));
+    oldData = [];
+    localStorage.setItem('array', JSON.stringify(oldData));
+    var goBack = document.querySelector("#goBackBtn");
+    goBack.setAttribute("style","display:flex; width:145px; font-size:17px; align-items: center;  justify-content:space-around;");
+    var clear = document.querySelector("#clearBtn");
+    clear.setAttribute("style", "display:flex; width:145px; font-size:17px; align-items: center; justify-content:space-around;");
+    location.reload();
+});
 
 function endGame(){
     const finalScore = timeLeft; //I'm using const here because it holds the score once the timer hits zero. Using a var, it would change when the timer finished.
@@ -142,6 +202,7 @@ function endGame(){
     cBtn.setAttribute("style","display:none");
     dBtn.setAttribute("style","display:none");
     saveGame.setAttribute("style", "display:flex; Justify-content:center; font-size: 25px");
+    submitButton.setAttribute("style","display:flex; align-items:center; Justify-content:center; font-size: 15px");
 }
 
 aButton.addEventListener("click", function(event){

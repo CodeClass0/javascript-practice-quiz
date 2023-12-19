@@ -1,4 +1,6 @@
-
+*{
+    font-family: 'Inter', sans-serif;
+}
 header{
     display:flex;
     flex-direction:row;
@@ -75,28 +77,58 @@ h3{
     border-radius: 12px;
 }
 
-#submitBtn:hover{
+#buttonrow{
+    display: flex;
+    justify-content: space-evenly;
+    width:500px;
+}
+
+/* #submitBtn:hover{
     border: 3px solid green;
     background-color: rgb(255, 181, 45);
     cursor:pointer;
+} */
+
+input{
+    margin-right:10px;
+    margin-left:10px;
 }
 
 #saveScore{
     display:none;
 }
-.answerBtn:hover{
+
+.leaderBtns{
+    display:none;
+    width:65px;
+    height:35px;
+    background-color:orange;
+    color:white;
+    font-weight:bolder;
+    font-size:30px;
+    border-radius: 12px;
+}
+button:hover{
     border: 3px solid green;
     background-color: rgb(255, 181, 45);
     cursor:pointer;
 }
+/* .answerBtn:hover{
+    border: 3px solid green;
+    background-color: rgb(255, 181, 45);
+    cursor:pointer;
+} */
 
 ol{
     width:500px;
 }
 
 #leaderboard{
-    display:flex;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
 }
 
 #startBtn{
@@ -114,8 +146,8 @@ ol{
     justify-content: center;
 }
 
-#startBtn:hover{
+/* #startBtn:hover{
     border: 3px solid green;
     background-color: rgb(255, 181, 45);
     cursor:pointer;
-}
+} */

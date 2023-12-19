@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Montserrat:wght@200;400;500&display=swap" rel="stylesheet">
     <title>Javascript Quiz</title>
 </head>
 <body>
     <header>
-        <h1 id="viewScore"><a href="#">View High Scores</a></h1>
+        <h1 id="viewScore"><a href="#viewScores">View High Scores</a></h1>
         <h1 id="time">Time: </h1>
     </header>
 
@@ -36,6 +39,10 @@
 
             <div id="leaderboard">
                 <ol></ol>
+                <div id="buttonrow">
+                    <button id="goBackBtn" class="leaderBtns">Go Back</button>
+                    <button id="clearBtn" class="leaderBtns">Clear Board</button>
+                </div>
             </div>
 
             
