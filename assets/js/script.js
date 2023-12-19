@@ -1,48 +1,115 @@
 var answeEl = document.querySelector("#answerBlock");
 var timerEl = document.querySelector("#time");
 var startBtn = document.querySelector("#startBtn");
-var questionBank = {
-    question1: "Arrays in Javascript can be used to store _________.",
-    answer1a: "numbers and strings",
-    answer1b: "other arrays",
-    answer1c: "booleans",  
-    answer1d: "all of the above",
-    correctAnswer1: this.answer1d,
+var questionBlock = document.querySelector("#titletext");
+var description = document.querySelector("#description")
+var aButton = document.querySelector("#aBtn");
+var bButton = document.querySelector("#bBtn");
+var cButton = document.querySelector("#cBtn");
+var dButton = document.querySelector("#dBtn");
+var answerButtons = document.querySelector(".answerBtn");
+var passFail = document.querySelector("#passfail");
+var timeLeft = 59;
 
-    question2: "String values must be enclosed within _________ when being assigned to variables.",
-    answer2a: "commas",
-    answer2b: "curly brackets",
-    answer2c: "quotes",  
-    answer2d: "parenthesis",
-    correctAnswer2: this.answer2c,
-
-    question3: "The condition in an if/else statement is enclosed with _________.",
-    answer3a: "quotes",
-    answer3b: "curly brackets",
-    answer3c: "parentesis",  
-    answer3d: "square brackets",
-    correctAnswer3: this.answer3c,
-    
-    question4: "A very useful tool used during development and debugging for printing content to the debugger is:",
-    answer4a: "JavaScript",
-    answer4b: "terminal/bash",
-    answer4c: "for loops",  
-    answer4d: "console.log",
-    correctAnswer4: this.answer4d,
-
-    question5: "Commonly used data types do NOT include:",
-    answer5a: "strings",
-    answer5b: "booleans",
-    answer5c: "alerts",  
-    answer5d: "numbers",
-    correctAnswer5: this.answer5c,
+var question1 = {
+    question: "Arrays in Javascript can be used to store _________.",
+    answerA: "numbers and strings",
+    answerB: "other arrays",
+    answerC: "booleans",  
+    answerD: "all of the above",
+    correctAnswer: "all of the above",
 };
+
+var question2 = {
+    question: "String values must be enclosed within _________ when being assigned to variables.",
+    answerA: "commas",
+    answerB: "curly brackets",
+    answerC: "quotes",  
+    answerD: "parenthesis",
+    correctAnswer: "quotes",
+}
+
+var question3 = {
+    question: "The condition in an if/else statement is enclosed with _________.",
+    answerA: "quotes",
+    answerB: "curly brackets",
+    answerC: "parenthesis",  
+    answerD: "square brackets",
+    correctAnswer: "parenthesis",
+};
+    
+var question4 = {
+    question: "A very useful tool used during development and debugging for printing content to the debugger is:",
+    answerA: "JavaScript",
+    answerB: "terminal/bash",
+    answerC: "for loops",  
+    answerD: "console.log",
+    correctAnswer: "console.log",
+};
+
+var question5 = {
+    question: "Commonly used data types do NOT include:",
+    answerA: "strings",
+    answerB: "booleans",
+    answerC: "alerts",  
+    answerD: "numbers",
+    correctAnswer: "alerts", 
+};
+
+var questionArray = [question1,question2,question3,question4,question5];
+
+function displayQuestion(index){
+    questionBlock.textContent = questionArray[index].question;
+    description.setAttribute("style", "display:none");
+    aButton.textContent = questionArray[index].answerA;
+    aButton.setAttribute("style", "display:block");
+    bButton.textContent = questionArray[index].answerB;
+    bButton.setAttribute("style", "display:block");
+    cButton.textContent = questionArray[index].answerC;
+    cButton.setAttribute("style", "display:block");
+    dButton.textContent = questionArray[index].answerD;
+    dButton.setAttribute("style", "display:block");
+}
 
 startBtn.addEventListener("click", function(event){
     event.preventDefault();
     countdown(); 
     startBtn.setAttribute("style", "display:none");
+    displayQuestion(0);
 })
+
+aButton.addEventListener("click", function(event){
+    checkAnswer(questionArray[0].answerA);
+});
+
+bButton.addEventListener("click", function(event){
+    checkAnswer(questionArray[0].answerB);
+});
+
+cButton.addEventListener("click", function(event){
+    checkAnswer(questionArray[0].answerC);
+});
+
+dButton.addEventListener("click", function(event){
+    checkAnswer(questionArray[0].answerD);
+});
+
+function checkAnswer(choice){
+    var rubric = questionArray[0].correctAnswer;
+    if(choice == rubric){
+        passFail.textContent = "Correct!";
+    }else{
+        passFail.textContent = "Wrong!";
+        timeLeft=timeLeft-10;
+    }
+
+    if (questionArray.length > 1){
+        questionArray.shift();
+        displayQuestion(0);
+    }else{
+        alert("end");
+    }
+}
 
 function endGame(){
 
@@ -50,7 +117,7 @@ function endGame(){
 
 function countdown() {
     timerEl.textContent = "Time: 60";
-    var timeLeft = 59;
+
   
     // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
     var timeInterval = setInterval(function () {
@@ -69,12 +136,6 @@ function countdown() {
         endGame();
       }
     }, 1000);
-  }
+ }
 
-//So on click, I need:
-//Start button to hide
-//question to display
-//answer fields to populate
-//ansewr buttons to show
-//timer to start
 
